@@ -16,12 +16,12 @@ st.markdown(
 # Section Links (2 Akun TikTok)
 st.subheader("🔗 Links")
 st.link_button(
-    "🎵 TikTok Main (@anproject032)",
+    "🎵 TikTok (@anproject032)",
     "https://tiktok.com/@anproject032",
     use_container_width=True,
 )
 st.link_button(
-    "🎵 TikTok Backup (@project.an_)",
+    "🎵 TikTok (@project.an_)",
     "https://tiktok.com/@project.an_",
     use_container_width=True,
 )
