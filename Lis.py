@@ -17,16 +17,15 @@ st.divider()
 
 # Section AI Asisten
 st.subheader("💬 AI Asisten")
-api_key = st.text_input("Masukkan Gemini API Key:", type="password")
 prompt = st.text_area("Tanyakan sesuatu ke AI:")
 
 if st.button("Kirim ke AI", use_container_width=True):
-    if not api_key:
-        st.warning("Masukkan API Key terlebih dahulu!")
-    elif not prompt:
+    if not prompt:
         st.warning("Tuliskan pertanyaanmu!")
     else:
         try:
+            # Mengambil API key otomatis dari Streamlit Secrets
+            api_key = st.secrets["GEMINI_API_KEY"]
             with st.spinner("Sedang memproses..."):
                 genai.configure(api_key=api_key)
                 model = genai.GenerativeModel('gemini-1.5-flash')
