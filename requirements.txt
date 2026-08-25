@@ -1,1 +1,2 @@
-echo -e "streamlit\ngoogle-generativeai" > requirements.txt
+streamlit
+google-generativeai
