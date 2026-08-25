@@ -1,114 +1,40 @@
-cat << 'EOF' > index.html
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AN Project - Links & AI</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+import streamlit as st
+import google.generativeai as genai
 
-        body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #09090b 100%);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+st.set_page_config(page_title="AN Project", page_icon="🤖", layout="centered")
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
-        }
+# Judul Utama
+st.markdown("<h1 style='text-align: center;'>🤖 AN Project</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: gray;'>Official Links & AI Service</p>", unsafe_allow_html=True)
 
-        .profile-img {
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 42px;
-            margin: 0 auto 16px auto;
-            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);
-            border: 3px solid rgba(255, 255, 255, 0.2);
-        }
+# Section Link Bio
+st.subheader("🔗 Links")
+st.link_button("🎵 TikTok Main (@anproject032)", "https://tiktok.com/@anproject032", use_container_width=True)
+st.link_button("🎵 TikTok Backup (@project.an_)", "https://tiktok.com/@project.an_", use_container_width=True)
+st.link_button("🌐 Link AI Lama", "https://short-url.cc/1CuUK", use_container_width=True)
 
-        h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            letter-spacing: -0.5px;
-        }
+st.divider()
 
-        p.bio {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 28px;
-        }
+# Section AI Asisten
+st.subheader("💬 AI Asisten")
+api_key = st.text_input("Masukkan Gemini API Key:", type="password")
+prompt = st.text_area("Tanyakan sesuatu ke AI:")
 
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .link-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .link-card:hover, .link-card:active {
-            transform: translateY(-3px) scale(1.02);
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(168, 85, 247, 0.5);
-            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.25);
-        }
-
-        .link-info {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .icon-box {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .ai-bg { background: rgba(99, 102, 241, 0.2); color: #818cf8; }
-        .tiktok-bg { background: rgba(244, 63, 94, 0.2); color: #fb7185; }
-
-        .arrow {
-            color: #64748b;
-            font-size: 1.1rem;
+if st.button("Kirim ke AI", use_container_width=True):
+    if not api_key:
+        st.warning("Masukkan API Key terlebih dahulu!")
+    elif not prompt:
+        st.warning("Tuliskan pertanyaanmu!")
+    else:
+        try:
+            with st.spinner("Sedang memproses..."):
+                genai.configure(api_key=api_key)
+                model = genai.GenerativeModel('gemini-1.5-flash')
+                response = model.generate_content(prompt)
+                st.markdown("### Jawaban:")
+                st.write(response.text)
+        except Exception as e:
+            st.error(f"Error: {e}")            font-size: 1.1rem;
             transition: transform 0.2s ease;
         }
 
