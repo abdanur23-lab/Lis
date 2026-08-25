@@ -27,8 +27,8 @@ if st.button("Kirim ke AI", use_container_width=True):
             api_key = st.secrets["GEMINI_API_KEY"]
             with st.spinner("Sedang memproses..."):
                 genai.configure(api_key=api_key)
-                # Menggunakan model terbaru gemini-2.5-flash
-                model = genai.GenerativeModel('gemini-2.5-flash')
+                # Menggunakan model paling update: gemini-3.6-flash
+                model = genai.GenerativeModel('gemini-3.6-flash')
                 response = model.generate_content(prompt)
                 st.markdown("### Jawaban:")
                 st.write(response.text)
