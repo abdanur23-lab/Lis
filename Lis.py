@@ -24,11 +24,11 @@ if st.button("Kirim ke AI", use_container_width=True):
         st.warning("Tuliskan pertanyaanmu!")
     else:
         try:
-            # Mengambil API key otomatis dari Streamlit Secrets
             api_key = st.secrets["GEMINI_API_KEY"]
             with st.spinner("Sedang memproses..."):
                 genai.configure(api_key=api_key)
-                model = genai.GenerativeModel('gemini-1.5-flash')
+                # Menggunakan model terbaru gemini-2.5-flash
+                model = genai.GenerativeModel('gemini-2.5-flash')
                 response = model.generate_content(prompt)
                 st.markdown("### Jawaban:")
                 st.write(response.text)
