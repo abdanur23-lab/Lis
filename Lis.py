@@ -9,8 +9,7 @@ st.markdown("<p style='text-align: center; color: gray;'>Official Links & AI Ser
 
 # Section Links
 st.subheader("🔗 Links")
-st.link_button("🎵 TikTok  (@anproject032)", "https://tiktok.com/@anproject032", use_container_width=True)
-st.link_button("🎵 TikTok  (@project.an_)", "https://tiktok.com/@project.an_", use_container_width=True)
+st.link_button("🎵 TikTok (@project.an_)", "https://tiktok.com/@project.an_", use_container_width=True)
 st.link_button("🌐 Link AI V2", "https://short-url.cc/1CuUK", use_container_width=True)
 
 st.divider()
@@ -27,8 +26,19 @@ if st.button("Kirim ke AI", use_container_width=True):
             api_key = st.secrets["GEMINI_API_KEY"]
             with st.spinner("Sedang memproses..."):
                 genai.configure(api_key=api_key)
-                # Menggunakan model paling update: gemini-3.6-flash
-                model = genai.GenerativeModel('gemini-3.6-flash')
+                
+                # Perintah khusus untuk mengubah identitas AI
+                system_prompt = (
+                    "Nama kamu adalah AN AI (atau AN). Kamu adalah kecerdasan buatan "
+                    "yang dikembangkan oleh AN Project. Jika ada yang bertanya siapa kamu "
+                    "atau siapa yang membuatmu, jawablah bahwa kamu adalah AN AI dari AN Project."
+                )
+                
+                model = genai.GenerativeModel(
+                    model_name='gemini-2.5-flash',
+                    system_instruction=system_prompt
+                )
+                
                 response = model.generate_content(prompt)
                 st.markdown("### Jawaban:")
                 st.write(response.text)
